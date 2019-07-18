@@ -4,33 +4,12 @@ pipeline {
         stage("Permitions Configuration") {
             steps {
                 sh "chmod -R 755 ../../scripts/"
+                sh "chmod -R 755 ../../endpoints/"
             }
         }          
         stage("Create cluster Kubernetes") {
             steps {
                 sh "../../scripts/commands/create-cluster.sh | bash"
-            }
-        }        
-        stage("Builder of Project") {
-            steps {
-                sh "cp webclient-register-conteinerdb/devops/app/scripts/builderProject.sh webclient-register-conteinerdb/"
-                sh "chmod +x webclient-register-conteinerdb/builderProject.sh"
-                sh "./webclient-register-conteinerdb/builderProject.sh"
-            }
-        }        
-        stage("Create env of Project") {
-            steps {
-                sh "mkdir application"
-                sh "chmod -R 755 application/"
-                sh "cp -R webclient-register-conteinerdb/target application/"
-                sh "chmod -R 755 webclient-register-conteinerdb/"
-                sh "rm -R webclient-register-conteinerdb/"
-                sh "sshpass -p $PASSWORD_SERVER scp -r application/ $USER_SERVER@$HOST_SERVER:"
-            }
-        }
-        stage("Runner Project") {
-            steps {
-                sh "sshpass -p $PASSWORD_SERVER ssh $USER_SERVER@$HOST_SERVER 'java -jar application/target/webclient-0.0.1-SNAPSHOT.jar'"
             }
         }
     }
