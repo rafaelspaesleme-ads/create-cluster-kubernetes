@@ -1,0 +1,14 @@
+{
+    "name": "${NAME_CLUSTER}",
+    "region": "${REGION_CLUSTER}",
+    "version": "${VERSION_CLUSTER}",
+    "tags": ["${TAGS_CLUSTER}"],
+    "node_pools": [
+        {
+            "size": "${SIZE_CLUSTER}",
+            "count": "${NUMBER_NODES_CLUSTER}",
+            "name": "${NAME_NODE_CLUSTER}",
+            "tags": ["${TAGS_NODE_CLUSTER}"]
+        }
+    ]
+}
